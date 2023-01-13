@@ -1,0 +1,212 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/GALewis/ML-Mismatch/descriptors/development-environment-schema-v01.json",
+    "title": "Development Environment Schema",
+    "description": "Schema for the Development Environment ML-enabled system element, which comprises attributes such as details for upstream and downstream components, as well as available computing resources, which are important for avoiding trained model integration problems.",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.0"},
+        "programming_languages": {
+            "description": "Programming languages supported in the development environment",
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 1
+        },
+        "ml_frameworks": {
+            "description": "ML frameworks supported by the development environment",
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 1
+        },
+        "upstream_components": {
+            "description": "Specifications/APIs for how data comes in from upstream components",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "component_name": {
+                        "description": "Component name",
+                        "type": "string"
+                    },
+                    "output_spec": {
+                        "description": "Component output specification that determines how data is coming into the ML component",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "item_name": {
+                                    "description": "Data item name",
+                                    "type": "string"
+                                },
+                                "item_description": {
+                                    "description": "Short data item description",
+                                    "type": "string"
+                                },
+                                "item_type": {
+                                    "description": "Data item type, e.g. number, string, boolean, date",
+                                    "type": "string"
+                                },
+                                "expected_values": {
+                                    "description": "Expected values for data item (e.g., any, range, enumeration)",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "item_name",
+                                "item_description",
+                                "item_type",
+                                "expected_values"
+                            ]
+                        },
+                        "minItems": 1
+                    },
+                    "ml_component": {
+                        "description": "Indication of whether it is an ML component or not",
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "component_name",
+                    "output_spec",
+                    "ml_component"
+                ]
+            }
+        },
+        "downstream_components": {
+            "description": "Specifications/APIs for how data is consumed by downstream components",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "component_name": {
+                        "description": "Component name",
+                        "type": "string"
+                    },
+                    "input_spec": {
+                        "description": "Component input specification that determines how data is consumed by the upstream component",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "item_name": {
+                                    "description": "Data item name",
+                                    "type": "string"
+                                },
+                                "item_description": {
+                                    "description": "Short data item description",
+                                    "type": "string"
+                                },
+                                "item_type": {
+                                    "description": "Data item type, e.g. number, string, boolean, date",
+                                    "type": "string"
+                                },
+                                "expected_values": {
+                                    "description": "Expected values for data item (e.g., any, range, enumeration)",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "item_name",
+                                "item_description",
+                                "item_type",
+                                "expected_values"
+                            ]
+                        },
+                        "minItems": 1
+                    },
+                    "ml_component": {
+                        "description": "Indication of whether it is an ML component or not",
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "component_name",
+                    "input_spec",
+                    "ml_component"
+                ]
+            }
+        },
+        "milestones": {
+            "description": "Development and integration milestones for integration of trained model into the larger system",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "milestone": {
+                        "description": "Milestone name",
+                        "type": "string"
+                    },
+                    "milestone_date": {
+                        "description": "Milestone date",
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "required": [
+                    "milestone",
+                    "milestone_date"
+                ]
+            }
+        },
+        "computing_resources": {
+            "description": "Computing resources available in the development environment, such as CPU, GPU, memory and storage",
+            "type": "object",
+            "properties": {
+                "gpu": {
+                    "description": "Number of CPUs available",
+                    "type": "integer"
+                },
+                "cpu": {
+                    "description": "Number of GPUs available",
+                    "type": "integer"
+                },
+                "memory": {
+                    "description": "Amount of memory available (in GB)",
+                    "type": "number"
+                },
+                "storage": {
+                    "description": "Amount of memory available (in GB)",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "gpu",
+                "cpu",
+                "memory",
+                "storage"
+            ]
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "programming_languages",
+        "ml_frameworks",
+        "upstream_components",
+        "milestones",
+        "downstream_components",
+        "computing_resources",
+        "documentation"
+    ]
+}

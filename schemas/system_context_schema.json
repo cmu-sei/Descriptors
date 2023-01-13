@@ -1,0 +1,140 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/GALewis/ML-Mismatch/descriptors/task-and-purpose-schema-v02.json",
+    "title": "System Context Schema",
+    "description": "Schema for the System Context ML-enabled system element, which comprises business goals, task, success criteria, usage context, risks, and other business elements that influence model development, deployment, and evolution",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.0"},
+        "task": {
+            "description": "Well-defined task that model is expected to perform, or problem that the model is expected to solve",
+            "type": "string"
+        },
+        "ml_problem_type": {
+            "description": "Type of ML problem that the model is intended to solve: classification, clustering, trend, alert, forecasting, summarization, benchmarking, goals, other",
+            "type": "object",
+            "properties": {
+                "ml_problem": {
+                    "description": "ML problem",
+                    "type": "string",
+                    "enum": [
+                        "Classification",
+                        "Clustering",
+                        "Trend",
+                        "Alert",
+                        "Forecasting",
+                        "Summarization",
+                        "Benchmarking",
+                        "Goals",
+                        "Other"
+                    ]
+                },
+                "other_problem": {
+                    "description": "ML problem if previous field is Other",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ml_problem",
+                "other_problem"
+            ]
+        },
+        "business_goals": {
+            "description": "Business goals or objectives that the model is going to help satisfy",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Identifier for business goal",
+                        "type": "string"
+                    },
+                    "goal": {
+                        "description": "Business goal",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "goal"
+                ]
+            },
+            "minItems" : 1
+        },
+        "available_data": {
+            "description": "What data is available to solve the problem",
+            "type": "string"
+        },
+        "success_criteria": {
+            "description": "Success criteria, client expectations, validation scenarios, or acceptance criteria for determining that the model is performing correctly",
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 1
+        },
+        "usage_context": {
+            "description": "How the results of the model are going to be used by end users or in the context of a larger system",
+            "type": "string"
+        },
+        "data_rights_policies": {
+            "description": "Known data rights, legal, privacy, and other policies that need to be met by model and data",
+            "type": "string"
+        },
+        "risks": {
+            "description": "Risks of the model producing an incorrect inference/prediction/result",
+            "type": "object",
+            "properties": {
+                "risk_fp": {
+                    "description": "Risk of producing a false positive",
+                    "type": "string"
+                },
+                "risk_fn": {
+                    "description": "Risk of producing a false negative",
+                    "type": "string"
+                },
+                "risk_other": {
+                    "description": "Other risks of producing incorrect results",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "risk_fp",
+                "risk_fn",
+                "risk_other"
+            ]
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "task",
+        "ml_problem_type",
+        "business_goals",
+        "available_data",
+        "success_criteria",
+        "usage_context",
+        "data_rights_policies",
+        "risks",
+        "documentation"
+    ]
+}

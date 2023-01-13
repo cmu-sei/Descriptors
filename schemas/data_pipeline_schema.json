@@ -1,0 +1,158 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/GALewis/ML-Mismatch/descriptors/data-pipeline-schema.json",
+    "title": "Data Pipeline Schema",
+    "description": "Schema for the Data Pipeline that prepares data for processing by the Trained Model. The Data Pipeline component is used during the training, evaluation, and test of the ML model during model development. Once complete, the Data Pipleine is used to prepare data for the Trained Model in both model integration and model operations.",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.0"},
+        "pipeline_identifier": {
+            "description": "Short identifier or name for the pipeline",
+            "type": "string"
+        },
+        "pipeline_version": {
+            "description": "Data pipeline version",
+            "type": "string"
+        },
+        "pipeline_description": {
+            "description": "High-level description of data pipeline",
+            "type": "string"
+        },
+        "input_spec": {
+            "description": "Specification for data pipeline input",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "item_name": {
+                        "description": "Data item name",
+                        "type": "string"
+                    },
+                    "item_description": {
+                        "description": "Short data item description",
+                        "type": "string"
+                    },
+                    "item_type": {
+                        "description": "Data item type, (e.g., number, string, boolean, date)",
+                        "type": "string"
+                    },
+                    "expected_values": {
+                        "description": "Expected values for data item (e.g., any, range, enumeration)",
+                        "type": "string"
+                    },
+                    "component_mapping": {
+                        "description": "How data pipeline inputs map to upstream components in production system, as defined in the Development Environment descriptor",
+                        "type": "object",
+                        "properties": {
+                            "component": {
+                                "description": "Mapping to upstream component in production system, as defined in the Development Environment descriptor",
+                                "type": "string"
+                            },
+                            "data_item": {
+                                "description": "Data item name in upstream component in production system",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "component",
+                            "data_item"
+                        ]
+                    }
+                },
+                "required": [
+                    "item_name",
+                    "item_description",
+                    "item_type",
+                    "expected_values",
+                    "component_mapping"
+                ]
+            },
+            "minItems": 1
+        },
+        "test_cases": {
+            "description": "Test cases developed for the data pipeline inputs (both success and failure cases)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "test_case_name": {
+                        "description": "Test case name",
+                        "type": "string"
+                    },
+                    "tested_property": {
+                        "description": "Property tested in test case, such as correct input values or behavior for out of distribution values",
+                        "type": "string"
+                    },
+                    "file": {
+                        "description": "File or folder containing test case",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "test_case_name",
+                    "tested_property",
+                    "file"
+                ]
+            }
+        },
+        "pipeline_steps": {
+            "description": "Steps followed to prepare data for Trained Model consumption",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "data_processing_step": {
+                        "description": "Short name for data processing step",
+                        "type": "string"
+                    },
+                    "data_processing_detail": {
+                        "description": "Details of what takes place in this step",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "data_processing_step",
+                    "data_processing_detail"
+                ]
+            }
+        },
+        "pipeline_code": {
+            "description": "URI for data pipeline code",
+            "type": "string",
+            "format": "uri"
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "pipeline_version",
+        "pipeline_description",
+        "input_spec",
+        "test_cases",
+        "pipeline_steps",
+        "pipeline_code",
+        "documentation"
+    ]
+}
