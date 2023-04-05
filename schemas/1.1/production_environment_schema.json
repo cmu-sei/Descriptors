@@ -1,11 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://github.com/GALewis/ML-Mismatch/descriptors/production-environment-schema-v01.json",
+    "$id": "https://github.com/cmu-sei/ml-mismatch-descriptors/blob/master/schemas/production_environment_schema.json",
     "title": "Production Environment Schema",
     "description": "Schema for the Production Environment ML-enabled system element, which comprises attributes such as implemented metrics, as well as available computing resources, to understand its readiness for properly serving the trained model",
     "type": "object",
     "properties": {
-        "version": {"const": "1.0"},
+        "version": {"const": "1.1"},
         "required_inference_time": {
             "description": "Required model inference time (e.g., time for the model to produce a result)",
             "type": "object",
@@ -57,6 +57,14 @@
                 "memory",
                 "storage"
             ]
+        },
+        "deployment_platform": {
+            "description": "Platform on which the trained model will be deployed (e.g., local server, cloud, embedded platform)",
+            "type": "string"
+        },
+        "deployment_mechanism": {
+            "description": "Deployment mechanism for the capability provided by the trained model (e.g., API, user-facing, output to system component)",
+            "type": "string"
         },
         "algorithm_metrics": {
             "description": "Algorithm metrics that the production environment is ready to capture (map to metrics defined in the Trained Model descriptor)",

@@ -1,0 +1,193 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/cmu-sei/ml-mismatch-descriptors/blob/master/schemas/training_data_schema.json",
+    "title": "Training Data Schema",
+    "description": "Schema for the Training Data ML-enabled system element, which comprises attributes such as data statistics, data distribution, and data preparation code, which are important for model integration and evaluation, as well as reproducibility",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.1"},
+         "dataset_identifier": {
+            "description": "Dataset identifier (linked to Trained Model)",
+            "type": "string"
+        },
+        "dataset_name": {
+            "description": "Dataset name",
+            "type": "string"
+        },
+        "dataset_version": {
+            "description": "Dataset version",
+            "type": "string"
+        },
+        "dataset_description": {
+            "description": "Description of training dataset",
+            "type": "string"
+        },
+        "raw_data_identifier": {
+            "description": "Identifier of raw dataset that training data is derived from (linked to Raw Data)",
+            "type": "string"
+        },
+        "schema": {
+            "description": "Description of data elements (rows) within each data instance, including field (column) names, description, values, and meaning of missing values",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "field_name": {
+                        "description": "Field name",
+                        "type": "string"
+                    },
+                    "label_field": {
+                        "description": "Indication of whether the field is part of the label for the training data (i.e., likely not in the production data and only relevant for training)",
+                        "type": "boolean"
+                    },
+                    "field_description": {
+                        "description": "Short field description",
+                        "type": "string"
+                    },
+                    "field_type": {
+                        "description": "Field type, e.g. number, string, boolean, date",
+                        "type": "string"
+                    },
+                    "expected_values": {
+                        "description": "Expected values for field (e.g., any, range, enumeration)",
+                        "type": "string"
+                    },
+                    "missing_values": {
+                        "description": "How to interpret missing or null values",
+                        "type": "string"
+                    },
+                    "mapping_production_data": {
+                        "description": "Mappping to corresponding field in production data",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "field_name",
+                    "label_field",
+                    "field_description",
+                    "field_type",
+                    "expected_values",
+                    "missing_values",
+                    "mapping_production_data"
+                ]
+            }
+        },
+        "statistics": {
+            "description": "Training data statistics",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "property": {
+                        "description": "Statistical property such as minimum, maximum, average, entropy, etc.",
+                        "type": "string"
+                    },
+                    "field": {
+                        "description": "Field (column) that the statistic applies to",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "Value for reported statistical property",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "property",
+                    "field",
+                    "value"
+                ]
+            },
+            "minItems": 1
+        },
+        "distribution": {
+            "description": "Data distribution (if applicable)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {
+                        "description": "Label",
+                        "type": "string"
+                    },
+                    "percentage": {
+                        "description": "Percentage of instances associated to label",
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                    },
+                    "mapping_production_data": {
+                        "description": "Mappping to corresponding label in production data",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "label",
+                    "percentage",
+                    "mapping_production_data"
+                ]
+            }
+        },
+        "preparation_process": {
+            "description": "Steps followed to transform raw data into training data, (e.g., pre-processing, cleaning, augmentation)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "data_processing_step": {
+                        "description": "Short name for data processing step",
+                        "type": "string"
+                    },
+                    "data_processing_detail": {
+                        "description": "Details of what takes place in this step",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "data_processing_step",
+                    "data_processing_detail"
+                ]
+            }
+        },
+        "preparation_code": {
+            "description": "URI for data preparation code",
+            "type": "string",
+            "format": "uri"
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "dataset_identifier",
+        "dataset_name",
+        "dataset_version",
+        "dataset_description",
+        "raw_data_identifier",
+        "schema",
+        "statistics",
+        "distribution",
+        "preparation_process",
+        "preparation_code",
+        "documentation"
+    ]
+}
