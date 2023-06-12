@@ -18,14 +18,16 @@
                     "description": "ML problem",
                     "type": "string",
                     "enum": [
+                        "Alert",
+                        "Benchmarking",
                         "Classification",
                         "Clustering",
-                        "Trend",
-                        "Alert",
+                        "Content Generation",
+                        "Detection",
                         "Forecasting",
-                        "Summarization",
-                        "Benchmarking",
                         "Goals",
+                        "Summarization",
+                        "Trend",
                         "Other"
                     ]
                 },
