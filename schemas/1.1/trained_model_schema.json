@@ -416,7 +416,7 @@
             "type": "string"
         },
         "algorithm_metrics": {
-            "description": "Algorithm metrics to capture at run time to detect changes in predicton behavior and inform model troubleshooting and retraining.",
+            "description": "Algorithm metrics to capture at run time to detect changes in prediction behavior and inform model troubleshooting and retraining.",
             "type": "array",
             "items": {
                 "type": "object",
