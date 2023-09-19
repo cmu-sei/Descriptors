@@ -1,0 +1,230 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/cmu-sei/ml-mismatch-descriptors/blob/master/schemas/production_environment_schema.json",
+    "title": "Production Environment Schema",
+    "description": "Schema for the Production Environment ML-enabled system element, which comprises attributes such as implemented metrics, as well as available computing resources, to understand its readiness for properly serving the trained model",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.1"},
+        "required_inference_time": {
+            "description": "Required model inference time (e.g., time for the model to produce a result)",
+            "type": "object",
+            "properties": {
+                "time": {
+                    "description": "Required inference time",
+                    "type": "integer"
+                },
+                "unit": {
+                    "description": "Unit of required inference time",
+                    "type": "string",
+                    "enum": [
+                        "Milliseconds",
+                        "Seconds",
+                        "Minutes",
+                        "Hours"
+                    ]
+                }
+            },
+            "required": [
+                "time",
+                "unit"
+            ]
+        },
+        "computing_resources": {
+            "description": "Computing resources available in the production environment, such as CPU, GPU, memory and storage",
+            "type": "object",
+            "properties": {
+                "gpu": {
+                    "description": "Number of GPUs available",
+                    "type": "integer"
+                },
+                "cpu": {
+                    "description": "Number of CPUs available",
+                    "type": "integer"
+                },
+                "memory": {
+                    "description": "Amount of memory available (in GB)",
+                    "type": "number"
+                },
+                "storage": {
+                    "description": "Amount of memory available (in GB)",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "gpu",
+                "cpu",
+                "memory",
+                "storage"
+            ]
+        },
+        "deployment_platform": {
+            "description": "Platform on which the trained model will be deployed (e.g., local server, cloud, embedded platform)",
+            "type": "string"
+        },
+        "deployment_mechanism": {
+            "description": "Deployment mechanism for the capability provided by the trained model (e.g., API, user-facing, output to system component)",
+            "type": "string"
+        },
+        "algorithm_metrics": {
+            "description": "Algorithm metrics that the production environment is ready to capture (map to metrics defined in the Trained Model descriptor)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "description": "Algorithm metric - selected from algorithm metrics defined in the Trained Model descriptor",
+                        "type": "string"
+                    },
+                    "implementation": {
+                        "description": "Implementation details",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "metric",
+                    "implementation"
+                ]
+            }
+        },
+        "business_metrics": {
+            "description": "Business metrics that the production environment is ready to capture (map to metrics defined in the Trained Model descriptor)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "description": "Business metric - selected from business metrics defined in the Trained Model descriptor",
+                        "type": "string"
+                    },
+                    "implementation": {
+                        "description": "Implementation details",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "metric",
+                    "implementation"
+                ]
+            }
+        },
+         "other_metrics": {
+            "description": "Other system and model metrics that production environment is ready to capture and have not been defined for the Trained Model",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "description": "Metric",
+                        "type": "string"
+                    },
+                    "implementation": {
+                        "description": "Implementation details",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "metric",
+                    "implementation"
+                ]
+            }
+        },
+        "user_system_feedback": {
+            "description": "User and system feedback that the production environment is ready to capture (mapping to Trained Model feedback)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "feedback": {
+                        "description": "Feedback",
+                        "type": "string"
+                    },
+                    "implementation": {
+                        "description": "Implementation details",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "feedback",
+                    "implementation"
+                ]
+            }
+        },
+        "model_logs": {
+            "description": "Logs for troubleshooting and retraining that the production environment is ready to capture (mapping to Trained Model log data requirements)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "log": {
+                        "description": "Logged data",
+                        "type": "string"
+                    },
+                    "implementation": {
+                        "description": "Implementation details",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "log",
+                    "implementation"
+                ]
+            }
+        },
+        "other_logs": {
+            "description": "Other system and model logs that the production environment is ready to capture",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "log": {
+                        "description": "Logged data",
+                        "type": "string"
+                    },
+                    "implementation": {
+                        "description": "Implementation details",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "log",
+                    "implementation"
+                ]
+            }
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "required_inference_time",
+        "computing_resources",
+        "algorithm_metrics",
+        "business_metrics",
+        "other_metrics",
+        "user_system_feedback",
+        "model_logs",
+        "other_logs",
+        "documentation"
+    ]
+}

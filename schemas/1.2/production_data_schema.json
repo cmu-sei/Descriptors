@@ -1,0 +1,130 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/cmu-sei/ml-mismatch-descriptors/blob/master/schemas/production_data_schema.json",
+    "title": "Production Data Schema",
+    "description": "Schema for the Production Data ML-enabled system element, which comprises attributes such as data statistics, data sources, and data rates, which are important for making decisions related to model development.",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.1"},
+        "data_sources": {
+            "description": "Sources for production data for the deployed ML component",
+            "type": "string"
+        },
+        "data_rates": {
+            "description": "Rates at which production data feeds into the deployed ML component",
+            "type": "string"
+        },
+        "schema": {
+            "description": "Schema (syntax and semantics) of the data that constitutes the input for the deployed ML component",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "field_name": {
+                        "description": "Field (column) name",
+                        "type": "string"
+                    },
+                    "field_description": {
+                        "description": "Short field description",
+                        "type": "string"
+                    },
+                    "field_type": {
+                        "description": "Field type, (e.g., number, string, boolean, date)",
+                        "type": "string"
+                    },
+                    "expected_values": {
+                        "description": "Expected values for field (e.g., any, range, enumeration)",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "field_name",
+                    "field_description",
+                    "field_type",
+                    "expected_values"
+                ]
+            }
+        },
+        "statistics": {
+            "description": "Production data statistics (if known)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "property": {
+                        "description": "Statistical property such as minimum, maximum, average, entropy, etc.",
+                        "type": "string"
+                    },
+                    "field": {
+                        "description": "Field (column) that the statistic applies to",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "Value for reported statistical property",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "property",
+                    "field",
+                    "value"
+                ]
+            },
+            "minItems": 1
+        },
+        "distribution": {
+            "description": "Data distribution (if known)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {
+                        "description": "Label",
+                        "type": "string"
+                    },
+                    "percentage": {
+                        "description": "Percentage of instances associated to label",
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                    }
+                },
+                "required": [
+                    "label",
+                    "percentage"
+                ]
+            }
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "data_sources",
+        "data_rates",
+        "schema",
+        "statistics",
+        "distribution",
+        "documentation"
+    ]
+}
