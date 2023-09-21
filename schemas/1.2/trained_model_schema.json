@@ -134,12 +134,73 @@
                         "type": "string"
                     },
                     "item_type": {
-                        "description": "Data item type, e.g. number, string, boolean, date",
-                        "type": "string"
+                        "description": "Data item type, (e.g., integer, float, string, image)",
+                        "type": "string",
+                        "enum": [
+                            "Integer",
+                            "Float",
+                            "String",
+                            "Image",
+                            "Other"
+                        ]
                     },
-                    "expected_values": {
-                        "description": "Expected values for data item (e.g., any, range, enumeration)",
-                        "type": "string"
+                    "item_specification": {
+                        "description": "",
+                        "type": "object",
+                        "properties": {
+                            "expected_value": {
+                                "description": "",
+                                "type": "string"
+                            },
+                            "min_value": {
+                                "description": "",
+                                "type": "number"
+                            },
+                            "max_value": {
+                                "description": "",
+                                "type": "number"
+                            },
+                            "resolution_x": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "resolution_y": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "empty": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "numeric": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "slashes": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "spaces": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "special": {
+                                "description": "",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "expected_value",
+                            "min_value",
+                            "max_value",
+                            "resolution_x",
+                            "resolution_y",
+                            "empty",
+                            "numeric",
+                            "slashes",
+                            "spaces",
+                            "special"
+                        ]
                     },
                     "component_mapping": {
                         "description": "How trained model outputs map to downstream components in production system, as defined in the Development Environment descriptor",
@@ -194,12 +255,73 @@
                         "type": "string"
                     },
                     "item_type": {
-                        "description": "Data item type, (e.g., number, string, boolean, date)",
-                        "type": "string"
+                        "description": "Data item type, (e.g., integer, float, string, image)",
+                        "type": "string",
+                        "enum": [
+                            "Integer",
+                            "Float",
+                            "String",
+                            "Image",
+                            "Other"
+                        ]
                     },
-                    "expected_values": {
-                        "description": "Expected values for data item (e.g., any, range, enumeration)",
-                        "type": "string"
+                    "item_specification": {
+                        "description": "",
+                        "type": "object",
+                        "properties": {
+                            "expected_value": {
+                                "description": "",
+                                "type": "string"
+                            },
+                            "min_value": {
+                                "description": "",
+                                "type": "number"
+                            },
+                            "max_value": {
+                                "description": "",
+                                "type": "number"
+                            },
+                            "resolution_x": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "resolution_y": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "empty": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "numeric": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "slashes": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "spaces": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "special": {
+                                "description": "",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "expected_value",
+                            "min_value",
+                            "max_value",
+                            "resolution_x",
+                            "resolution_y",
+                            "empty",
+                            "numeric",
+                            "slashes",
+                            "spaces",
+                            "special"
+                        ]
                     },
                     "component_mapping": {
                         "description": "How trained model outputs map to downstream components in production system, as defined in the Development Environment descriptor",
@@ -228,28 +350,6 @@
                     "component_mapping"
                 ]
             }
-        },
-        "error_handling": {
-            "description": "Error handling performed by the model",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "error_condition": {
-                        "description": "Error condition",
-                        "type": "string"
-                    },
-                    "how_handled": {
-                        "description": "How error is handled by the model",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "error_condition",
-                    "how_handled"
-                ]
-            },
-            "minItems": 1
         },
         "evaluation_dataset": {
             "description": "Dataset used for model evaluation (should be a split of the training dataset)",

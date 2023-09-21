@@ -33,12 +33,97 @@
                         "type": "string"
                     },
                     "item_type": {
-                        "description": "Data item type, (e.g., number, string, boolean, date)",
-                        "type": "string"
+                        "description": "Data item type, (e.g., integer, float, string, image)",
+                        "type": "string",
+                        "enum": [
+                            "Integer",
+                            "Float",
+                            "String",
+                            "Image",
+                            "Other"
+                        ]
                     },
-                    "expected_values": {
-                        "description": "Expected values for data item (e.g., any, range, enumeration)",
-                        "type": "string"
+                    "item_specification": {
+                        "description": "",
+                        "type": "object",
+                        "properties": {
+                            "expected_value": {
+                                "description": "",
+                                "type": "string"
+                            },
+                            "min_value": {
+                                "description": "",
+                                "type": "number"
+                            },
+                            "max_value": {
+                                "description": "",
+                                "type": "number"
+                            },
+                            "resolution_x": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "resolution_y": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "empty": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "numeric": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "slashes": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "spaces": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "special": {
+                                "description": "",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "expected_value",
+                            "min_value",
+                            "max_value",
+                            "resolution_x",
+                            "resolution_y",
+                            "empty",
+                            "numeric",
+                            "slashes",
+                            "spaces",
+                            "special"
+                        ]
+                    },
+                    "error_handling": {
+                        "description": "",
+                        "type": "object",
+                        "properties": {
+                            "error_type": {
+                                "description": "",
+                                "type": "string",
+                                "enum": [
+                                    "Log to console",
+                                    "Log to file",
+                                    "Return error code",
+                                    "Return none"
+                                ]
+                            },
+                            "error_code_value": {
+                                "description": "",
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "error_type",
+                            "error_code_value"
+                        ]
                     },
                     "component_mapping": {
                         "description": "How data pipeline inputs map to upstream components in production system, as defined in the Development Environment descriptor",
@@ -63,7 +148,8 @@
                     "item_name",
                     "item_description",
                     "item_type",
-                    "expected_values",
+                    "item_specification",
+                    "error_handling",
                     "component_mapping"
                 ]
             },
