@@ -148,8 +148,8 @@
                         "description": "",
                         "type": "object",
                         "properties": {
-                            "expected_values": {
-                                "description": "Expected values for data item of type other (e.g., any, range, enumeration)",
+                            "other_value": {
+                                "description": "Value for type other (e.g., boolean, any, range, enumeration)",
                                 "type": "string"
                             },
                             "min_value": {
@@ -211,7 +211,7 @@
                             }
                         },
                         "required": [
-                            "expected_values",
+                            "other_value",
                             "min_value",
                             "max_value",
                             "resolution_x",

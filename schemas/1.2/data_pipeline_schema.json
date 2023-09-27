@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://github.com/cmu-sei/ml-mismatch-descriptors/blob/master/schemas/data_pipeline_schema.json",
     "title": "Data Pipeline Schema",
-    "description": "Schema for the Data Pipeline that prepares data for processing by the Trained Model. The Data Pipeline component is used during the training, evaluation, and test of the ML model during model development. Once complete, the Data Pipleine is used to prepare data for the Trained Model in both model integration and model operations.",
+    "description": "Schema for the Data Pipeline that prepares data for processing by the Trained Model. The Data Pipeline component is used during the training, evaluation, and test of the ML model during model development. Once complete, the Data Pipeline is used to prepare data for the Trained Model in both model integration and model operations.",
     "type": "object",
     "properties": {
         "version": {"const": "1.2"},
@@ -47,8 +47,8 @@
                         "description": "",
                         "type": "object",
                         "properties": {
-                            "expected_values": {
-                                "description": "Expected values for data item of type other (e.g., any, range, enumeration)",
+                            "other_value": {
+                                "description": "Value for type other (e.g., boolean, any, range, enumeration)",
                                 "type": "string"
                             },
                             "min_value": {
@@ -72,7 +72,7 @@
                                 "type": "integer"
                             },
                             "image_format": {
-                                "description": "Format that image is stored in if it is saved to a file.",
+                                "description": "Format that image is stored in, if it is saved to a file.",
                                 "type": "string",
                                 "enum": [
                                     "",
@@ -110,7 +110,7 @@
                             }
                         },
                         "required": [
-                            "expected_values",
+                            "other_value",
                             "min_value",
                             "max_value",
                             "resolution_x",
