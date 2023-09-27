@@ -5,7 +5,7 @@
     "description": "Schema for the Production Environment ML-enabled system element, which comprises attributes such as implemented metrics, as well as available computing resources, to understand its readiness for properly serving the trained model",
     "type": "object",
     "properties": {
-        "version": {"const": "1.1"},
+        "version": {"const": "1.2"},
         "required_inference_time": {
             "description": "Required model inference time (e.g., time for the model to produce a result)",
             "type": "object",

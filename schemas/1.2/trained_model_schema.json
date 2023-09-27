@@ -5,7 +5,7 @@
     "description": "Schema for the Trained Model ML-enabled system element, which comprises evaluation data, API/Specifications, evaluation metrics, system configuration requirements, and other trained model attributes that are important for proper integration, deployment, and monitoring.",
     "type": "object",
     "properties": {
-        "version": {"const": "1.1"},
+        "version": {"const": "1.2"},
         "model_name": {
             "description": "Trained model name",
             "type": "string"
@@ -148,8 +148,8 @@
                         "description": "",
                         "type": "object",
                         "properties": {
-                            "expected_value": {
-                                "description": "",
+                            "expected_values": {
+                                "description": "Expected values for data item of type other (e.g., any, range, enumeration)",
                                 "type": "string"
                             },
                             "min_value": {
@@ -165,6 +165,27 @@
                                 "type": "integer"
                             },
                             "resolution_y": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "channels": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "image_format": {
+                                "description": "",
+                                "type": "string",
+                                "enum": [
+                                    "",
+                                    "JPG",
+                                    "PNG"
+                                ]
+                            },
+                            "min_length": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "max_length": {
                                 "description": "",
                                 "type": "integer"
                             },
@@ -190,11 +211,13 @@
                             }
                         },
                         "required": [
-                            "expected_value",
+                            "expected_values",
                             "min_value",
                             "max_value",
                             "resolution_x",
                             "resolution_y",
+                            "min_length",
+                            "max_length",
                             "empty",
                             "numeric",
                             "slashes",
@@ -225,7 +248,6 @@
                     "item_name",
                     "item_description",
                     "item_type",
-                    "expected_values",
                     "component_mapping"
                 ]
             },
@@ -269,8 +291,8 @@
                         "description": "",
                         "type": "object",
                         "properties": {
-                            "expected_value": {
-                                "description": "",
+                            "expected_values": {
+                                "description": "Expected values for data item of type other (e.g., any, range, enumeration)",
                                 "type": "string"
                             },
                             "min_value": {
@@ -286,6 +308,27 @@
                                 "type": "integer"
                             },
                             "resolution_y": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "channels": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "image_format": {
+                                "description": "",
+                                "type": "string",
+                                "enum": [
+                                    "",
+                                    "JPG",
+                                    "PNG"
+                                ]
+                            },
+                            "min_length": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "max_length": {
                                 "description": "",
                                 "type": "integer"
                             },
@@ -311,11 +354,13 @@
                             }
                         },
                         "required": [
-                            "expected_value",
+                            "expected_values",
                             "min_value",
                             "max_value",
                             "resolution_x",
                             "resolution_y",
+                            "min_length",
+                            "max_length",
                             "empty",
                             "numeric",
                             "slashes",
@@ -346,7 +391,6 @@
                     "item_name",
                     "item_description",
                     "item_type",
-                    "expected_values",
                     "component_mapping"
                 ]
             }

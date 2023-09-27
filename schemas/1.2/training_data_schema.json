@@ -5,7 +5,7 @@
     "description": "Schema for the Training Data ML-enabled system element, which comprises attributes such as data statistics, data distribution, and data preparation code, which are important for model integration and evaluation, as well as reproducibility",
     "type": "object",
     "properties": {
-        "version": {"const": "1.1"},
+        "version": {"const": "1.2"},
          "dataset_identifier": {
             "description": "Dataset identifier (linked to Trained Model)",
             "type": "string"

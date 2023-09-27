@@ -5,7 +5,7 @@
     "description": "Schema for the Production Data ML-enabled system element, which comprises attributes such as data statistics, data sources, and data rates, which are important for making decisions related to model development.",
     "type": "object",
     "properties": {
-        "version": {"const": "1.1"},
+        "version": {"const": "1.2"},
         "data_sources": {
             "description": "Sources for production data for the deployed ML component",
             "type": "string"

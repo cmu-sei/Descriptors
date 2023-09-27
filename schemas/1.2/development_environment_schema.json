@@ -5,7 +5,7 @@
     "description": "Schema for the Development Environment ML-enabled system element, which comprises attributes such as details for upstream and downstream components, as well as available computing resources, which are important for avoiding trained model integration problems.",
     "type": "object",
     "properties": {
-        "version": {"const": "1.1"},
+        "version": {"const": "1.2"},
         "programming_languages": {
             "description": "Programming languages supported in the development environment",
             "type": "array",

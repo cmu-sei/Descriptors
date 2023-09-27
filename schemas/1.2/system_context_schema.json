@@ -5,7 +5,7 @@
     "description": "Schema for the System Context ML-enabled system element, which comprises goals, performance. metrics, task, usage context, risks, and other context elements that influence model development, deployment, and evolution",
     "type": "object",
     "properties": {
-        "version": {"const": "1.1"},
+        "version": {"const": "1.2"},
         "task": {
             "description": "Well-defined task that model is expected to perform, or problem that the model is expected to solve",
             "type": "string"

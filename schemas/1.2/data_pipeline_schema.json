@@ -5,7 +5,7 @@
     "description": "Schema for the Data Pipeline that prepares data for processing by the Trained Model. The Data Pipeline component is used during the training, evaluation, and test of the ML model during model development. Once complete, the Data Pipleine is used to prepare data for the Trained Model in both model integration and model operations.",
     "type": "object",
     "properties": {
-        "version": {"const": "1.1"},
+        "version": {"const": "1.2"},
         "pipeline_identifier": {
             "description": "Short identifier or name for the pipeline",
             "type": "string"
@@ -47,53 +47,76 @@
                         "description": "",
                         "type": "object",
                         "properties": {
-                            "expected_value": {
-                                "description": "",
+                            "expected_values": {
+                                "description": "Expected values for data item of type other (e.g., any, range, enumeration)",
                                 "type": "string"
                             },
                             "min_value": {
-                                "description": "",
+                                "description": "Mininum numeric value expected for data item",
                                 "type": "number"
                             },
                             "max_value": {
-                                "description": "",
+                                "description": "Maximum numeric value expected for data item",
                                 "type": "number"
                             },
                             "resolution_x": {
-                                "description": "",
+                                "description": "X value for the resolution of image input for data item",
                                 "type": "integer"
                             },
                             "resolution_y": {
-                                "description": "",
+                                "description": "Y value for the resolution of image input for data item",
+                                "type": "integer"
+                            },
+                            "channels": {
+                                "description": "Number of channels present in image input for data item (typically 1 or 3)",
+                                "type": "integer"
+                            },
+                            "image_format": {
+                                "description": "Format that image is stored in if it is saved to a file.",
+                                "type": "string",
+                                "enum": [
+                                    "",
+                                    "JPG",
+                                    "PNG"
+                                ]
+                            },
+                            "min_length": {
+                                "description": "Minimum length of string expected for data item",
+                                "type": "integer"
+                            },
+                            "max_length": {
+                                "description": "Maximum length of string expected for data item",
                                 "type": "integer"
                             },
                             "empty": {
-                                "description": "",
+                                "description": "Indication of whether empty strings are valid for data item",
                                 "type": "boolean"
                             },
                             "numeric": {
-                                "description": "",
+                                "description": "Indication of whether numeric characters are valid in string for data item",
                                 "type": "boolean"
                             },
                             "slashes": {
-                                "description": "",
+                                "description": "Indication of whether slashes are valid in string for data item",
                                 "type": "boolean"
                             },
                             "spaces": {
-                                "description": "",
+                                "description": "Indication of whether spaces are valid in string for data item",
                                 "type": "boolean"
                             },
                             "special": {
-                                "description": "",
+                                "description": "Indication of whether other special characters are valid in string for data item",
                                 "type": "boolean"
                             }
                         },
                         "required": [
-                            "expected_value",
+                            "expected_values",
                             "min_value",
                             "max_value",
                             "resolution_x",
                             "resolution_y",
+                            "min_length",
+                            "max_length",
                             "empty",
                             "numeric",
                             "slashes",
@@ -102,11 +125,11 @@
                         ]
                     },
                     "error_handling": {
-                        "description": "",
+                        "description": "Specification of how error will be handled when data item is an incorrect value",
                         "type": "object",
                         "properties": {
                             "error_type": {
-                                "description": "",
+                                "description": "Type of error that will be produced when data item is an incorrect value",
                                 "type": "string",
                                 "enum": [
                                     "Log to console",
@@ -116,7 +139,7 @@
                                 ]
                             },
                             "error_code_value": {
-                                "description": "",
+                                "description": "Specifies the value of the error code, if returned",
                                 "type": "integer"
                             }
                         },

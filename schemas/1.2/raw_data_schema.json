@@ -5,7 +5,7 @@
     "description": "Schema for the Raw Data ML-enabled system element, which describes the raw data from which training data is derived",
     "type": "object",
     "properties": {
-        "version": {"const": "1.1"},
+        "version": {"const": "1.2"},
         "dataset_identifier": {
             "description": "Short identifier for the dataset",
             "type": "string"
