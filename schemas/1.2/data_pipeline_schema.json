@@ -44,7 +44,7 @@
                         ]
                     },
                     "item_specification": {
-                        "description": "",
+                        "description": "Specific specification for the data type of the item",
                         "type": "object",
                         "properties": {
                             "other_value": {
@@ -72,7 +72,7 @@
                                 "type": "integer"
                             },
                             "image_format": {
-                                "description": "Format that image is stored in, if it is saved to a file.",
+                                "description": "Format that image is stored in, if it is saved to a file",
                                 "type": "string",
                                 "enum": [
                                     "",
