@@ -1,0 +1,215 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/GALewis/ML-Mismatch/descriptors/raw-data-schema.json",
+    "title": "Raw Data Schema",
+    "description": "Schema for the Raw Data ML-enabled system element, which describes the raw data from which training data is derived",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.2"},
+        "dataset_identifier": {
+            "description": "Short identifier for the dataset",
+            "type": "string"
+        },
+         "dataset_version": {
+            "description": "Dataset version",
+            "type": "string"
+        },
+        "dataset_name": {
+            "description": "Dataset name",
+            "type": "string"
+        },
+        "dataset_description": {
+            "description": "Description of dataset",
+            "type": "string"
+        },
+        "data_sources": {
+            "description": "Data sources for raw data",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "data_source": {
+                        "description": "Data source for raw data, such as enterprise, public, simulated, synthetic, etc.",
+                        "type": "string",
+                        "enum": [
+                            "Enterprise Data",
+                            "Public Data Source",
+                            "Synthetic Data",
+                            "Simulated Data",
+                            "Other"
+                        ]
+                    },
+                    "other_source": {
+                        "description": "Data source if previous field is Other",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "data_source",
+                    "other_source"
+                ]
+            },
+            "minItems": 1
+        },
+        "instance_type": {
+            "description": "Type of each instance included in the dataset (e.g., image, temperature reading, customer record)",
+            "type": "string"
+        },
+        "number_of_instances": {
+            "description": "Number of instances in dataset (i.e., dataset size)",
+            "type": "integer"
+        },
+        "labels_distribution": {
+            "description": "Labels and distribution of instances (if applicable)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {
+                        "description": "Label",
+                        "type": "string"
+                    },
+                    "percentage": {
+                        "description": "Percentage of instances associated to label",
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                    }
+                },
+                "required": [
+                    "label",
+                    "percentage"
+                ]
+            }
+        },
+        "schema": {
+            "description": "Description of data elements within each data instance, including field names, description, values, and meaning of missing values",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "field_name": {
+                        "description": "Field name",
+                        "type": "string"
+                    },
+                    "field_description": {
+                        "description": "Short field description",
+                        "type": "string"
+                    },
+                    "field_type": {
+                        "description": "Field type, (e.g., number, string, boolean, date)",
+                        "type": "string"
+                    },
+                    "expected_values": {
+                        "description": "Expected values for field (e.g., any, range, enumeration)",
+                        "type": "string"
+                    },
+                    "interpret_missing": {
+                        "description": "How to interpret missing values (e.g., null, empty string)",
+                        "type": "string"
+                    },
+                    "interpret_special": {
+                        "description": "How to interpret special values (e.g., 999, N/A)",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "field_name",
+                    "field_description",
+                    "field_type",
+                    "expected_values",
+                    "interpret_missing",
+                    "interpret_special"
+                ]
+            }
+        },
+        "metadata": {
+            "description": "Metadata about raw data, such as when it was collected, distribution, geographic location and timeframes",
+            "type": "object",
+            "properties": {
+                "collection_date": {
+                    "description": "When raw data was collected",
+                    "type": "string",
+                    "format": "date"
+                },
+                "geographic_location": {
+                    "description": "Geographic location associated to raw data (if applicable)",
+                    "type": "string"
+                },
+                "timeframe": {
+                    "description": "Timeframe for collected data (i.e., start date to end date) (if applicable)",
+                    "type": "string"
+                },
+                "known_issues": {
+                    "description": "Known errors, source of noise, or redundancies (if applicable)",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "collection_date",
+                "geographic_location",
+                "timeframe",
+                "known_issues"
+            ]
+        },
+        "restrictions": {
+            "description": "Indication regarding data sensitivities that would prohibit upload for example to public cloud environments (if applicable)",
+            "type": "string"
+        },
+        "data_rights": {
+            "description": "Description of ways in which the data can and cannot be used (if applicable)",
+            "type": "string"
+        },
+        "data_policies": {
+            "description": "Indication regarding data sensitivities that would prohibit upload for example to public cloud environments (if applicable)",
+            "type": "string"
+        },
+        "anonymization": {
+            "description": "Process used to anonymize data due to PII constraints, including mapping to operational data (if applicable)",
+            "type": "string"
+        },
+        "proxy_data": {
+            "description": "Process used to generate or acquire proxy data due to sensitivities, legal, or policy reasons, including a mapping to operational data (if applicable)",
+            "type": "string"
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "dataset_identifier",
+        "dataset_version",
+        "dataset_name",
+        "dataset_description",
+        "data_sources",
+        "instance_type",
+        "number_of_instances",
+        "labels_distribution",
+        "schema",
+        "metadata",
+        "restrictions",
+        "anonymization",
+        "proxy_data",
+        "documentation"
+    ]
+}

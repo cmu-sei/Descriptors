@@ -1,0 +1,267 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/cmu-sei/ml-mismatch-descriptors/blob/master/schemas/data_pipeline_schema.json",
+    "title": "Data Pipeline Schema",
+    "description": "Schema for the Data Pipeline that prepares data for processing by the Trained Model. The Data Pipeline component is used during the training, evaluation, and test of the ML model during model development. Once complete, the Data Pipeline is used to prepare data for the Trained Model in both model integration and model operations.",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.2"},
+        "pipeline_identifier": {
+            "description": "Short identifier or name for the pipeline",
+            "type": "string"
+        },
+        "pipeline_version": {
+            "description": "Data pipeline version",
+            "type": "string"
+        },
+        "pipeline_description": {
+            "description": "High-level description of data pipeline",
+            "type": "string"
+        },
+        "input_spec": {
+            "description": "Specification for data pipeline input",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "item_name": {
+                        "description": "Data item name",
+                        "type": "string"
+                    },
+                    "item_description": {
+                        "description": "Short data item description",
+                        "type": "string"
+                    },
+                    "item_type": {
+                        "description": "Data item type, (e.g., integer, float, string, image)",
+                        "type": "string",
+                        "enum": [
+                            "Integer",
+                            "Float",
+                            "String",
+                            "Image",
+                            "Other"
+                        ]
+                    },
+                    "item_specification": {
+                        "description": "Specific specification for the data type of the item",
+                        "type": "object",
+                        "properties": {
+                            "other_value": {
+                                "description": "Value for type other (e.g., boolean, any, range, enumeration)",
+                                "type": "string"
+                            },
+                            "min_value": {
+                                "description": "Mininum numeric value expected for data item",
+                                "type": "number"
+                            },
+                            "max_value": {
+                                "description": "Maximum numeric value expected for data item",
+                                "type": "number"
+                            },
+                            "resolution_x": {
+                                "description": "X value for the resolution of image input for data item",
+                                "type": "integer"
+                            },
+                            "resolution_y": {
+                                "description": "Y value for the resolution of image input for data item",
+                                "type": "integer"
+                            },
+                            "channels": {
+                                "description": "Number of channels present in image input for data item (typically 1 or 3)",
+                                "type": "integer"
+                            },
+                            "image_format": {
+                                "description": "Format that image is stored in, if it is saved to a file",
+                                "type": "string",
+                                "enum": [
+                                    "",
+                                    "JPG",
+                                    "PNG"
+                                ]
+                            },
+                            "min_length": {
+                                "description": "Minimum length of string expected for data item",
+                                "type": "integer"
+                            },
+                            "max_length": {
+                                "description": "Maximum length of string expected for data item",
+                                "type": "integer"
+                            },
+                            "empty": {
+                                "description": "Indication of whether empty strings are valid for data item",
+                                "type": "boolean"
+                            },
+                            "numeric": {
+                                "description": "Indication of whether numeric characters are valid in string for data item",
+                                "type": "boolean"
+                            },
+                            "slashes": {
+                                "description": "Indication of whether slashes are valid in string for data item",
+                                "type": "boolean"
+                            },
+                            "spaces": {
+                                "description": "Indication of whether spaces are valid in string for data item",
+                                "type": "boolean"
+                            },
+                            "special": {
+                                "description": "Indication of whether other special characters are valid in string for data item",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "other_value",
+                            "min_value",
+                            "max_value",
+                            "resolution_x",
+                            "resolution_y",
+                            "min_length",
+                            "max_length",
+                            "empty",
+                            "numeric",
+                            "slashes",
+                            "spaces",
+                            "special"
+                        ]
+                    },
+                    "error_handling": {
+                        "description": "Specification of how error will be handled when data item is an incorrect value",
+                        "type": "object",
+                        "properties": {
+                            "error_type": {
+                                "description": "Type of error that will be produced when data item is an incorrect value",
+                                "type": "string",
+                                "enum": [
+                                    "Log to console",
+                                    "Log to file",
+                                    "Return error code",
+                                    "Return none"
+                                ]
+                            },
+                            "error_code_value": {
+                                "description": "Specifies the value of the error code, if returned",
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "error_type",
+                            "error_code_value"
+                        ]
+                    },
+                    "component_mapping": {
+                        "description": "How data pipeline inputs map to upstream components in production system, as defined in the Development Environment descriptor",
+                        "type": "object",
+                        "properties": {
+                            "component": {
+                                "description": "Mapping to upstream component in production system, as defined in the Development Environment descriptor",
+                                "type": "string"
+                            },
+                            "data_item": {
+                                "description": "Data item name in upstream component in production system",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "component",
+                            "data_item"
+                        ]
+                    }
+                },
+                "required": [
+                    "item_name",
+                    "item_description",
+                    "item_type",
+                    "item_specification",
+                    "error_handling",
+                    "component_mapping"
+                ]
+            },
+            "minItems": 1
+        },
+        "test_cases": {
+            "description": "Test cases developed for the data pipeline inputs (both success and failure cases)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "test_case_name": {
+                        "description": "Test case name",
+                        "type": "string"
+                    },
+                    "tested_property": {
+                        "description": "Property tested in test case, such as correct input values or behavior for out of distribution values",
+                        "type": "string"
+                    },
+                    "file": {
+                        "description": "File or folder containing test case",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "test_case_name",
+                    "tested_property",
+                    "file"
+                ]
+            }
+        },
+        "pipeline_steps": {
+            "description": "Steps followed to prepare data for Trained Model consumption",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "data_processing_step": {
+                        "description": "Short name for data processing step",
+                        "type": "string"
+                    },
+                    "data_processing_detail": {
+                        "description": "Details of what takes place in this step",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "data_processing_step",
+                    "data_processing_detail"
+                ]
+            }
+        },
+        "pipeline_code": {
+            "description": "URI for data pipeline code",
+            "type": "string",
+            "format": "uri"
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "pipeline_version",
+        "pipeline_description",
+        "input_spec",
+        "test_cases",
+        "pipeline_steps",
+        "pipeline_code",
+        "documentation"
+    ]
+}

@@ -1,0 +1,829 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/cmu-sei/ml-mismatch-descriptors/blob/master/schemas/trained_model_schema.json",
+    "title": "Trained Model",
+    "description": "Schema for the Trained Model ML-enabled system element, which comprises evaluation data, API/Specifications, evaluation metrics, system configuration requirements, and other trained model attributes that are important for proper integration, deployment, and monitoring.",
+    "type": "object",
+    "properties": {
+        "version": {"const": "1.2"},
+        "model_name": {
+            "description": "Trained model name",
+            "type": "string"
+        },
+        "model_version": {
+            "description": "Trained model version",
+            "type": "string"
+        },
+        "model_description": {
+            "description": "Description of trained model",
+            "type": "string"
+        },
+        "training_date": {
+            "description": "Date on which model was trained",
+            "type": "string",
+            "format": "date"
+        },
+        "ensemble": {
+            "description": "Indication of whether the trained model is an ensemble",
+            "type": "boolean"
+        },
+        "model_components": {
+            "description": "Model components in the trained model",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "learning_algorithm": {
+                        "description": "Implemented learning algorithm/model type such as RNN, CNN, GBT, LR, etc.",
+                        "type": "object",
+                        "properties": {
+                            "algorithm": {
+                                "description": "Learning algorithm",
+                                "type": "string",
+                                "enum": [
+                                    "Recurring Neural Network (RNN)",
+                                    "Convolutional Neural Network (CNN)",
+                                    "Gradient Boosting Tree (GBT)",
+                                    "Linear Regression",
+                                    "Bayesian Network",
+                                    "Random Forest",
+                                    "Support Vector Machine (SVM)",
+                                    "Logistic Regression",
+                                    "K-Nearest Neighbors (KNN)",
+                                    "Naive Bayes Classifier",
+                                    "Other"
+                                ]
+                            },
+                            "other_algorithm": {
+                                "description": "Name of learning algorithm if previous field is Other",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "algorithm",
+                            "other_algorithm"
+                        ]
+                    },
+                    "hyper_parameters": {
+                        "description": "Non-default hyper-parameters for model component",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "parameter_name": {
+                                    "description": "Hyperparameter name",
+                                    "type": "string"
+                                },
+                                "parameter_value": {
+                                    "description": "Hyperparameter value",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "parameter_name",
+                                "parameter_value"
+                            ]
+                        },
+                        "minItems": 0
+                    },
+                    "programming_languages": {
+                        "description": "Programming languages used in model component development",
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "learning_algorithm",
+                    "hyper_parameters",
+                    "programming_languages"
+                ]
+            },
+            "minItems": 1
+        },
+        "model_composition_details": {
+            "description": "If the model is an ensemble, details on how the model components fit together and how the output is generated",
+            "type": "string"
+        },
+        "ml_frameworks": {
+            "description": "ML frameworks used for model development and training",
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 1
+        },
+        "data_pipeline_identifier": {
+            "description": "Data pipeline identifier as defined in the corresponding Data Pipeline descriptor, which includes the definition of model inputs (links to Data Pipeline)",
+            "type": "string"
+        },
+        "training_data_identifier": {
+            "description": "Training data identifier as defined in the corresponding Training Data descriptor (links to Training Data)",
+            "type": "string"
+        },
+        "output_spec": {
+            "description": "Specification for model output",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "item_name": {
+                        "description": "Data item name",
+                        "type": "string"
+                    },
+                    "item_description": {
+                        "description": "Data item description",
+                        "type": "string"
+                    },
+                    "item_type": {
+                        "description": "Data item type, (e.g., integer, float, string, image)",
+                        "type": "string",
+                        "enum": [
+                            "Integer",
+                            "Float",
+                            "String",
+                            "Image",
+                            "Other"
+                        ]
+                    },
+                    "item_specification": {
+                        "description": "Specific specification for the data type of the item",
+                        "type": "object",
+                        "properties": {
+                            "other_value": {
+                                "description": "Value for type other (e.g., boolean, any, range, enumeration)",
+                                "type": "string"
+                            },
+                            "min_value": {
+                                "description": "Mininum numeric value expected for data item",
+                                "type": "number"
+                            },
+                            "max_value": {
+                                "description": "Maximum numeric value expected for data item",
+                                "type": "number"
+                            },
+                            "resolution_x": {
+                                "description": "X value for the resolution of image input for data item",
+                                "type": "integer"
+                            },
+                            "resolution_y": {
+                                "description": "Y value for the resolution of image input for data item",
+                                "type": "integer"
+                            },
+                            "channels": {
+                                "description": "Number of channels present in image input for data item (typically 1 or 3)",
+                                "type": "integer"
+                            },
+                            "image_format": {
+                                "description": "Format that image is stored in, if it is saved to a file",
+                                "type": "string",
+                                "enum": [
+                                    "",
+                                    "JPG",
+                                    "PNG"
+                                ]
+                            },
+                            "min_length": {
+                                "description": "Minimum length of string expected for data item",
+                                "type": "integer"
+                            },
+                            "max_length": {
+                                "description": "Maximum length of string expected for data item",
+                                "type": "integer"
+                            },
+                            "empty": {
+                                "description": "Indication of whether empty strings are valid for data item",
+                                "type": "boolean"
+                            },
+                            "numeric": {
+                                "description": "Indication of whether numeric characters are valid in string for data item",
+                                "type": "boolean"
+                            },
+                            "slashes": {
+                                "description": "Indication of whether slashes are valid in string for data item",
+                                "type": "boolean"
+                            },
+                            "spaces": {
+                                "description": "Indication of whether spaces are valid in string for data item",
+                                "type": "boolean"
+                            },
+                            "special": {
+                                "description": "Indication of whether other special characters are valid in string for data item",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "other_value",
+                            "min_value",
+                            "max_value",
+                            "resolution_x",
+                            "resolution_y",
+                            "min_length",
+                            "max_length",
+                            "empty",
+                            "numeric",
+                            "slashes",
+                            "spaces",
+                            "special"
+                        ]
+                    },
+                    "component_mapping": {
+                        "description": "How trained model outputs map to downstream components in production system, as defined in the Development Environment descriptor",
+                        "type": "object",
+                        "properties": {
+                            "component": {
+                                "description": "Mapping to downstream component in production system, as defined in the Development Environment descriptor",
+                                "type": "string"
+                            },
+                            "data_item": {
+                                "description": "Data item name in downstream component in production system",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "component",
+                            "data_item"
+                        ]
+                    }
+                },
+                "required": [
+                    "item_name",
+                    "item_description",
+                    "item_type",
+                    "component_mapping"
+                ]
+            },
+            "minItems": 1
+        },
+        "post_processing": {
+            "description": "Indication of whether the there is post-processing done on the model output",
+            "type": "boolean"
+        },
+        "post_processing_process": {
+            "description": "Steps followed to post-process model output",
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "final_output_spec": {
+            "description": "Final specification for trained model output (only required if there is post-processing of model output)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "item_name": {
+                        "description": "Data item name",
+                        "type": "string"
+                    },
+                    "item_description": {
+                        "description": "Data item description",
+                        "type": "string"
+                    },
+                    "item_type": {
+                        "description": "Data item type, (e.g., integer, float, string, image)",
+                        "type": "string",
+                        "enum": [
+                            "Integer",
+                            "Float",
+                            "String",
+                            "Image",
+                            "Other"
+                        ]
+                    },
+                    "item_specification": {
+                        "description": "",
+                        "type": "object",
+                        "properties": {
+                            "other_value": {
+                                "description": "Value for type other (e.g., boolean, any, range, enumeration)",
+                                "type": "string"
+                            },
+                            "min_value": {
+                                "description": "",
+                                "type": "number"
+                            },
+                            "max_value": {
+                                "description": "",
+                                "type": "number"
+                            },
+                            "resolution_x": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "resolution_y": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "channels": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "image_format": {
+                                "description": "",
+                                "type": "string",
+                                "enum": [
+                                    "",
+                                    "JPG",
+                                    "PNG"
+                                ]
+                            },
+                            "min_length": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "max_length": {
+                                "description": "",
+                                "type": "integer"
+                            },
+                            "empty": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "numeric": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "slashes": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "spaces": {
+                                "description": "",
+                                "type": "boolean"
+                            },
+                            "special": {
+                                "description": "",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "other_value",
+                            "min_value",
+                            "max_value",
+                            "resolution_x",
+                            "resolution_y",
+                            "min_length",
+                            "max_length",
+                            "empty",
+                            "numeric",
+                            "slashes",
+                            "spaces",
+                            "special"
+                        ]
+                    },
+                    "component_mapping": {
+                        "description": "How trained model outputs map to downstream components in production system, as defined in the Development Environment descriptor",
+                        "type": "object",
+                        "properties": {
+                            "component": {
+                                "description": "Mapping to downstream component in production system, as defined in the Development Environment descriptor",
+                                "type": "string"
+                            },
+                            "data_item": {
+                                "description": "Data item name in upstream component in production system",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "component",
+                            "data_item"
+                        ]
+                    }
+                },
+                "required": [
+                    "item_name",
+                    "item_description",
+                    "item_type",
+                    "component_mapping"
+                ]
+            }
+        },
+        "evaluation_dataset": {
+            "description": "Dataset used for model evaluation (should be a split of the training dataset)",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Name of evaluation dataset",
+                    "type": "string"
+                },
+                "holdout_percentage": {
+                    "description": "Percentage of data held out for evaluation",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                },
+                "seed": {
+                    "description": "Seed for random number generation (if applicable)",
+                    "type": "integer"
+                },
+                "algorithm": {
+                    "description": "Name of algorithm being used for data split",
+                    "type": "string"
+                },
+                "file": {
+                    "description": "File or folder containing evaluation dataset (if it is being saved) (URI)",
+                    "type": "string",
+                    "format": "uri"
+                }
+            },
+            "required": [
+                "name",
+                "holdout_percentage",
+                "seed",
+                "algorithm",
+                "file"
+            ]
+        },
+        "evaluation_metrics": {
+            "description": "Model performance measures obtained with evaluation dataset (e.g., FPR, FNR, accuracy)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "description": "Evaluation metric",
+                        "type": "string",
+                        "enum": [
+                            "Accuracy",
+                            "False Positive Rate",
+                            "False Negative Rate",
+                            "Positive Predictive Value (PPV)",
+                            "Negative Predictive Value (NPV)",
+                            "F1 Score",
+                            "Other"
+                        ]
+                    },
+                    "other_metric": {
+                        "description": "Name of metric if previous field is Other",
+                        "type": "string"
+                    },
+                    "result": {
+                        "description": "Result obtained for metric",
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "metric",
+                    "other_metric",
+                    "result"
+                ]
+            },
+            "minItems": 1
+        },
+        "test_dataset": {
+            "description": "Test dataset (should be a split of the training dataset and used only once)",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Name of test dataset",
+                    "type": "string"
+                },
+                "test_results": {
+                    "description": "High-level description of the results from running trained model with test dataset",
+                    "type": "string"
+                },
+                "file": {
+                    "description": "File or folder containing test dataset and results (URI)",
+                    "type": "string",
+                    "format": "uri"
+                }
+            },
+            "required": [
+                "name",
+                "test_results",
+                "file"
+            ]
+        },
+        "integration_test_dataset": {
+            "description": "Additional test dataset for integration testing in case of post-processing of model output",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Name of integration test dataset",
+                    "type": "string"
+                },
+                "test_results": {
+                    "description": "High-level description of the results from running trained model with integration test dataset",
+                    "type": "string"
+                },
+                "file": {
+                    "description": "File or folder containing integration test dataset and results (URI)",
+                    "type": "string",
+                    "format": "uri"
+                }
+            },
+            "required": [
+                "name",
+                "test_results",
+                "file"
+            ]
+        },
+        "test_metrics": {
+            "description": "Model performance measures obtained with test dataset (e.g., FPR, FNR, accuracy)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "description": "Test metric",
+                        "type": "string",
+                        "enum": [
+                            "Accuracy",
+                            "False Positive Rate",
+                            "False Negative Rate",
+                            "Positive Predictive Value (PPV)",
+                            "Negative Predictive Value (NPV)",
+                            "F1 Score",
+                            "Other"
+                        ]
+                    },
+                    "other_metric": {
+                        "description": "Name of metric if previous field is Other",
+                        "type": "string"
+                    },
+                    "result": {
+                        "description": "Result obtained for metric",
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "metric",
+                    "other_metric",
+                    "result"
+                ]
+            },
+            "minItems": 1
+        },
+        "model_output_interpretation": {
+            "description": "Information necessary to interpret model output (i.e., inference, prediction)  including  meaning, uncertainty, confidence, etc.",
+            "type": "string"
+        },
+        "default_model_output": {
+            "description": "Output returned by the trained model when the models fails to run or produce a result",
+            "type": "string"
+        },
+        "algorithm_metrics": {
+            "description": "Algorithm metrics to capture at run time to detect changes in prediction behavior and inform model troubleshooting and retraining.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "description": "Algorithm metric",
+                        "type": "string"
+                    },
+                    "operator": {
+                        "description": "Operator for threshold",
+                        "type": "string",
+                        "enum": [
+                            "greater than",
+                            "greater or equal than",
+                            "less than",
+                            "less or equal than",
+                            "equal to",
+                            "different than"
+                        ]
+                    },
+                    "threshold": {
+                        "description": "Threshold for notification",
+                        "type": "number"
+                    },
+                    "goal_mapping": {
+                        "description": "Identifier of mapped goal in System Context descriptor",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "metric",
+                    "operator",
+                    "threshold",
+                    "goal_mapping"
+                ]
+            },
+            "minItems": 1
+        },
+        "business_metrics": {
+            "description": "Business metrics to capture at run time for model troubleshooting and retraining, or problem reevaluation.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "description": "Business metric",
+                        "type": "string"
+                    },
+                    "operator": {
+                        "description": "Operator for threshold",
+                        "type": "string",
+                        "enum": [
+                            "greater than",
+                            "greater or equal than",
+                            "less than",
+                            "less or equal than",
+                            "equal to",
+                            "different than"
+                        ]
+                    },
+                    "threshold": {
+                        "description": "Threshold for notification",
+                        "type": "number"
+                    },
+                    "goal_mapping": {
+                        "description": "Identifier of mapped goal in System Context descriptor",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "metric",
+                    "operator",
+                    "threshold",
+                    "goal_mapping"
+                ]
+            },
+            "minItems": 1
+        },
+        "user_system_feedback": {
+            "description": "Additional user and system feedback to capture at run time for model troubleshooting and retraining",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "short_name": {
+                        "description": "Short name for feedback",
+                        "type": "string"
+                    },
+                    "details": {
+                        "description": "Details of required user and system feedback",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "short_name",
+                    "details"
+                ]
+            },
+            "minItems": 1
+        },
+        "log_data": {
+            "description": "Data to log at run time for model troubleshooting and retraining, such as all input-output pairs, unexpected inputs, etc.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "log": {
+                        "description": "Data to log",
+                        "type": "string"
+                    },
+                    "log_data_format": {
+                        "description": "Preferred log data format",
+                        "type": "string"
+                    },
+                    "history": {
+                        "description": "How much log history is necessary for troubleshooting and retraining",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "log",
+                    "log_data_format",
+                    "history"
+                ]
+            },
+            "minItems": 1
+        },
+        "data_buffering_reqs": {
+            "description": "Data buffering or time window requirements that would indicate to a developer that data has to be delivered in 'chunks' instead of streamed (if applicable)",
+            "type": "string"
+        },
+        "decisions_assumptions": {
+            "description": "Decisions, assumptions, limitations and constraints related to the trained model that will have effect on its integration and deployment",
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 1
+        },
+        "computing_resource_reqs": {
+            "description": "Computing resources required to serve the model, such as CPU, GPU, memory and storage",
+            "type": "object",
+            "properties": {
+                "gpu": {
+                    "description": "Number of GPUs required",
+                    "type": "integer"
+                },
+                "cpu": {
+                    "description": "Number of CPUs required",
+                    "type": "integer"
+                },
+                "memory": {
+                    "description": "Amount of memory required (in GB)",
+                    "type": "number"
+                },
+                "storage": {
+                    "description": "Amount of storage required (in GB)",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "gpu",
+                "cpu",
+                "memory",
+                "storage"
+            ]
+        },
+        "inference_time": {
+            "description": "Observed inference time based on computing resource requirements",
+            "type": "object",
+            "properties": {
+                "time": {
+                    "description": "Inference time",
+                    "type": "integer"
+                },
+                "unit": {
+                    "description": "Unit of observed inference time",
+                    "type": "string",
+                    "enum": [
+                        "Milliseconds",
+                        "Seconds",
+                        "Minutes",
+                        "Hours"
+                    ]
+                }
+            },
+            "required": [
+                "time",
+                "unit"
+            ]
+        },
+        "system_dependencies": {
+            "description": "System dependencies required for trained model to execute, such as libraries, tools, configuration scripts, and other dependencies",
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 1
+        },
+        "model_training_code": {
+            "description": "URI for model training code",
+            "type": "string",
+            "format": "uri"
+        },
+        "trained_model_code": {
+            "description": "URI for trained model code",
+            "type": "string",
+            "format": "uri"
+        },
+        "documentation": {
+            "description": "Links to any supporting documentation",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "Description of the document",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location of document (URI)",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "description",
+                    "location"
+                ]
+            }
+        }
+    },
+    "required": [
+        "version",
+        "model_name",
+        "model_version",
+        "model_description",
+        "training_date",
+        "ensemble",
+        "model_components",
+        "model_composition_details",
+        "ml_frameworks",
+        "data_pipeline_identifier",
+        "training_data_identifier",
+        "output_spec",
+        "post_processing",
+        "post_processing_process",
+        "final_output_spec",
+        "error_handling",
+        "evaluation_dataset",
+        "evaluation_metrics",
+        "test_dataset",
+        "integration_test_dataset",
+        "test_metrics",
+        "model_output_interpretation",
+        "default_model_output",
+        "algorithm_metrics",
+        "business_metrics",
+        "user_system_feedback",
+        "log_data",
+        "data_buffering_reqs",
+        "decisions_assumptions",
+        "computing_resource_reqs",
+        "inference_time",
+        "system_dependencies",
+        "model_training_code",
+        "trained_model_code",
+        "documentation"
+    ]
+}
